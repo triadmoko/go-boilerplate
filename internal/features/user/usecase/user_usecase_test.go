@@ -1,7 +1,7 @@
 package usecase
 
 import (
-	"app/internal/features/user/delivery/http/dto"
+	"app/internal/features/user/delivery/http/dto_user"
 	mocks "app/internal/mocks/repository"
 	"app/internal/shared/constants"
 	"app/internal/shared/delivery/http/middleware"
@@ -90,7 +90,7 @@ func TestUpdateProfile_Success(t *testing.T) {
 		LastName:  "Name",
 	}
 
-	req := &dto.UpdateProfileRequest{
+	req := &dto_user.UpdateProfileRequest{
 		FirstName: "New",
 		LastName:  "Name",
 	}
@@ -113,7 +113,7 @@ func TestUpdateProfile_UserNotFound(t *testing.T) {
 	ctx := createTestContext()
 
 	userID := "nonexistent-user"
-	req := &dto.UpdateProfileRequest{
+	req := &dto_user.UpdateProfileRequest{
 		FirstName: "New",
 		LastName:  "Name",
 	}
@@ -141,7 +141,7 @@ func TestUpdateProfile_UpdateError(t *testing.T) {
 		LastName:  "Name",
 	}
 
-	req := &dto.UpdateProfileRequest{
+	req := &dto_user.UpdateProfileRequest{
 		FirstName: "New",
 		LastName:  "Name",
 	}
@@ -171,7 +171,7 @@ func TestUpdateProfile_PartialUpdate(t *testing.T) {
 	}
 
 	// Only update FirstName
-	req := &dto.UpdateProfileRequest{
+	req := &dto_user.UpdateProfileRequest{
 		FirstName: "NewFirst",
 		LastName:  "",
 	}

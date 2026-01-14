@@ -1,7 +1,7 @@
 package usecase
 
 import (
-	"app/internal/features/user/delivery/http/dto"
+	"app/internal/features/user/delivery/http/dto_user"
 	"app/internal/shared/constants"
 	"app/internal/shared/delivery/http/middleware"
 	"app/internal/shared/domain/entity"
@@ -16,9 +16,9 @@ import (
 
 // UserUsecase defines the interface for user use cases
 type UserUsecase interface {
-	GetProfile(ctx context.Context, userID string) (*dto.UserResponse, int, error)
-	UpdateProfile(ctx context.Context, userID string, req *dto.UpdateProfileRequest) (*dto.UserResponse, int, error)
-	GetUsers(ctx context.Context, queries map[string]string) ([]*dto.UserResponse, pkg.PaginationResponse, int, error)
+	GetProfile(ctx context.Context, userID string) (*dto_user	.UserResponse, int, error)
+	UpdateProfile(ctx context.Context, userID string, req *dto_user.UpdateProfileRequest) (*dto_user.UserResponse, int, error)
+	GetUsers(ctx context.Context, queries map[string]string) ([]*dto_user.UserResponse, pkg.PaginationResponse, int, error)
 }
 
 // userUsecase implements UserUsecase interface
@@ -36,7 +36,7 @@ func NewUserUsecase(userRepo repository.UserRepository, logger *logrus.Logger) U
 }
 
 // GetProfile retrieves user profile
-func (u *userUsecase) GetProfile(ctx context.Context, userID string) (*dto.UserResponse, int, error) {
+func (u *userUsecase) GetProfile(ctx context.Context, userID string) (*dto_user.UserResponse, int, error) {
 	lang := middleware.GetLangFromContext(ctx)
 
 	user, err := u.userRepo.GetByID(ctx, userID)
@@ -46,11 +46,11 @@ func (u *userUsecase) GetProfile(ctx context.Context, userID string) (*dto.UserR
 	}
 
 	// Convert to DTO response
-	return dto.ToUserResponse(user), http.StatusOK, nil
+	return dto_user.ToUserResponse(user), http.StatusOK, nil
 }
 
 // UpdateProfile updates user profile
-func (u *userUsecase) UpdateProfile(ctx context.Context, userID string, req *dto.UpdateProfileRequest) (*dto.UserResponse, int, error) {
+func (u *userUsecase) UpdateProfile(ctx context.Context, userID string, req *dto_user.UpdateProfileRequest) (*dto_user.UserResponse, int, error) {
 	lang := middleware.GetLangFromContext(ctx)
 
 	user, err := u.userRepo.GetByID(ctx, userID)
@@ -79,11 +79,11 @@ func (u *userUsecase) UpdateProfile(ctx context.Context, userID string, req *dto
 	}
 
 	// Convert to DTO response
-	return dto.ToUserResponse(user), http.StatusOK, nil
+	return dto_user.ToUserResponse(user), http.StatusOK, nil
 }
 
 // GetUsers retrieves list of users with filtering and pagination
-func (u *userUsecase) GetUsers(ctx context.Context, queries map[string]string) ([]*dto.UserResponse, pkg.PaginationResponse, int, error) {
+func (u *userUsecase) GetUsers(ctx context.Context, queries map[string]string) ([]*dto_user.UserResponse, pkg.PaginationResponse, int, error) {
 	lang := middleware.GetLangFromContext(ctx)
 
 	// Build pagination
@@ -123,9 +123,9 @@ func (u *userUsecase) GetUsers(ctx context.Context, queries map[string]string) (
 	}
 
 	// Convert entity users to DTO response
-	userResponses := make([]*dto.UserResponse, 0, len(users))
+		userResponses := make([]*dto_user.UserResponse, 0, len(users))
 	for _, user := range users {
-		userResponses = append(userResponses, dto.ToUserResponse(user))
+		userResponses = append(userResponses, dto_user.ToUserResponse(user))
 	}
 
 	// Build pagination response

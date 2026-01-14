@@ -3,7 +3,7 @@
 package mocks
 
 import (
-	dto "app/internal/features/user/delivery/http/dto"
+	dto_user "app/internal/features/user/delivery/http/dto_user"
 	context "context"
 
 	mock "github.com/stretchr/testify/mock"
@@ -25,24 +25,24 @@ func (_m *MockUserUsecase) EXPECT() *MockUserUsecase_Expecter {
 }
 
 // GetProfile provides a mock function with given fields: ctx, userID
-func (_m *MockUserUsecase) GetProfile(ctx context.Context, userID string) (*dto.UserResponse, int, error) {
+func (_m *MockUserUsecase) GetProfile(ctx context.Context, userID string) (*dto_user.UserResponse, int, error) {
 	ret := _m.Called(ctx, userID)
 
 	if len(ret) == 0 {
 		panic("no return value specified for GetProfile")
 	}
 
-	var r0 *dto.UserResponse
+	var r0 *dto_user.UserResponse
 	var r1 int
 	var r2 error
-	if rf, ok := ret.Get(0).(func(context.Context, string) (*dto.UserResponse, int, error)); ok {
+	if rf, ok := ret.Get(0).(func(context.Context, string) (*dto_user.UserResponse, int, error)); ok {
 		return rf(ctx, userID)
 	}
-	if rf, ok := ret.Get(0).(func(context.Context, string) *dto.UserResponse); ok {
+	if rf, ok := ret.Get(0).(func(context.Context, string) *dto_user.UserResponse); ok {
 		r0 = rf(ctx, userID)
 	} else {
 		if ret.Get(0) != nil {
-			r0 = ret.Get(0).(*dto.UserResponse)
+			r0 = ret.Get(0).(*dto_user.UserResponse)
 		}
 	}
 
@@ -80,36 +80,36 @@ func (_c *MockUserUsecase_GetProfile_Call) Run(run func(ctx context.Context, use
 	return _c
 }
 
-func (_c *MockUserUsecase_GetProfile_Call) Return(_a0 *dto.UserResponse, _a1 int, _a2 error) *MockUserUsecase_GetProfile_Call {
+func (_c *MockUserUsecase_GetProfile_Call) Return(_a0 *dto_user.UserResponse, _a1 int, _a2 error) *MockUserUsecase_GetProfile_Call {
 	_c.Call.Return(_a0, _a1, _a2)
 	return _c
 }
 
-func (_c *MockUserUsecase_GetProfile_Call) RunAndReturn(run func(context.Context, string) (*dto.UserResponse, int, error)) *MockUserUsecase_GetProfile_Call {
+func (_c *MockUserUsecase_GetProfile_Call) RunAndReturn(run func(context.Context, string) (*dto_user.UserResponse, int, error)) *MockUserUsecase_GetProfile_Call {
 	_c.Call.Return(run)
 	return _c
 }
 
 // GetUsers provides a mock function with given fields: ctx, queries
-func (_m *MockUserUsecase) GetUsers(ctx context.Context, queries map[string]string) ([]*dto.UserResponse, pkg.PaginationResponse, int, error) {
+func (_m *MockUserUsecase) GetUsers(ctx context.Context, queries map[string]string) ([]*dto_user.UserResponse, pkg.PaginationResponse, int, error) {
 	ret := _m.Called(ctx, queries)
 
 	if len(ret) == 0 {
 		panic("no return value specified for GetUsers")
 	}
 
-	var r0 []*dto.UserResponse
+	var r0 []*dto_user.UserResponse
 	var r1 pkg.PaginationResponse
 	var r2 int
 	var r3 error
-	if rf, ok := ret.Get(0).(func(context.Context, map[string]string) ([]*dto.UserResponse, pkg.PaginationResponse, int, error)); ok {
+	if rf, ok := ret.Get(0).(func(context.Context, map[string]string) ([]*dto_user.UserResponse, pkg.PaginationResponse, int, error)); ok {
 		return rf(ctx, queries)
 	}
-	if rf, ok := ret.Get(0).(func(context.Context, map[string]string) []*dto.UserResponse); ok {
+	if rf, ok := ret.Get(0).(func(context.Context, map[string]string) []*dto_user.UserResponse); ok {
 		r0 = rf(ctx, queries)
 	} else {
 		if ret.Get(0) != nil {
-			r0 = ret.Get(0).([]*dto.UserResponse)
+			r0 = ret.Get(0).([]*dto_user.UserResponse)
 		}
 	}
 
@@ -153,45 +153,45 @@ func (_c *MockUserUsecase_GetUsers_Call) Run(run func(ctx context.Context, queri
 	return _c
 }
 
-func (_c *MockUserUsecase_GetUsers_Call) Return(_a0 []*dto.UserResponse, _a1 pkg.PaginationResponse, _a2 int, _a3 error) *MockUserUsecase_GetUsers_Call {
+func (_c *MockUserUsecase_GetUsers_Call) Return(_a0 []*dto_user.UserResponse, _a1 pkg.PaginationResponse, _a2 int, _a3 error) *MockUserUsecase_GetUsers_Call {
 	_c.Call.Return(_a0, _a1, _a2, _a3)
 	return _c
 }
 
-func (_c *MockUserUsecase_GetUsers_Call) RunAndReturn(run func(context.Context, map[string]string) ([]*dto.UserResponse, pkg.PaginationResponse, int, error)) *MockUserUsecase_GetUsers_Call {
+func (_c *MockUserUsecase_GetUsers_Call) RunAndReturn(run func(context.Context, map[string]string) ([]*dto_user.UserResponse, pkg.PaginationResponse, int, error)) *MockUserUsecase_GetUsers_Call {
 	_c.Call.Return(run)
 	return _c
 }
 
 // UpdateProfile provides a mock function with given fields: ctx, userID, req
-func (_m *MockUserUsecase) UpdateProfile(ctx context.Context, userID string, req *dto.UpdateProfileRequest) (*dto.UserResponse, int, error) {
+func (_m *MockUserUsecase) UpdateProfile(ctx context.Context, userID string, req *dto_user.UpdateProfileRequest) (*dto_user.UserResponse, int, error) {
 	ret := _m.Called(ctx, userID, req)
 
 	if len(ret) == 0 {
 		panic("no return value specified for UpdateProfile")
 	}
 
-	var r0 *dto.UserResponse
+	var r0 *dto_user.UserResponse
 	var r1 int
 	var r2 error
-	if rf, ok := ret.Get(0).(func(context.Context, string, *dto.UpdateProfileRequest) (*dto.UserResponse, int, error)); ok {
+	if rf, ok := ret.Get(0).(func(context.Context, string, *dto_user.UpdateProfileRequest) (*dto_user.UserResponse, int, error)); ok {
 		return rf(ctx, userID, req)
 	}
-	if rf, ok := ret.Get(0).(func(context.Context, string, *dto.UpdateProfileRequest) *dto.UserResponse); ok {
+	if rf, ok := ret.Get(0).(func(context.Context, string, *dto_user.UpdateProfileRequest) *dto_user.UserResponse); ok {
 		r0 = rf(ctx, userID, req)
 	} else {
 		if ret.Get(0) != nil {
-			r0 = ret.Get(0).(*dto.UserResponse)
+			r0 = ret.Get(0).(*dto_user.UserResponse)
 		}
 	}
 
-	if rf, ok := ret.Get(1).(func(context.Context, string, *dto.UpdateProfileRequest) int); ok {
+	if rf, ok := ret.Get(1).(func(context.Context, string, *dto_user.UpdateProfileRequest) int); ok {
 		r1 = rf(ctx, userID, req)
 	} else {
 		r1 = ret.Get(1).(int)
 	}
 
-	if rf, ok := ret.Get(2).(func(context.Context, string, *dto.UpdateProfileRequest) error); ok {
+	if rf, ok := ret.Get(2).(func(context.Context, string, *dto_user.UpdateProfileRequest) error); ok {
 		r2 = rf(ctx, userID, req)
 	} else {
 		r2 = ret.Error(2)
@@ -208,24 +208,24 @@ type MockUserUsecase_UpdateProfile_Call struct {
 // UpdateProfile is a helper method to define mock.On call
 //   - ctx context.Context
 //   - userID string
-//   - req *dto.UpdateProfileRequest
+//   - req *dto_user.UpdateProfileRequest
 func (_e *MockUserUsecase_Expecter) UpdateProfile(ctx interface{}, userID interface{}, req interface{}) *MockUserUsecase_UpdateProfile_Call {
 	return &MockUserUsecase_UpdateProfile_Call{Call: _e.mock.On("UpdateProfile", ctx, userID, req)}
 }
 
-func (_c *MockUserUsecase_UpdateProfile_Call) Run(run func(ctx context.Context, userID string, req *dto.UpdateProfileRequest)) *MockUserUsecase_UpdateProfile_Call {
+func (_c *MockUserUsecase_UpdateProfile_Call) Run(run func(ctx context.Context, userID string, req *dto_user.UpdateProfileRequest)) *MockUserUsecase_UpdateProfile_Call {
 	_c.Call.Run(func(args mock.Arguments) {
-		run(args[0].(context.Context), args[1].(string), args[2].(*dto.UpdateProfileRequest))
+		run(args[0].(context.Context), args[1].(string), args[2].(*dto_user.UpdateProfileRequest))
 	})
 	return _c
 }
 
-func (_c *MockUserUsecase_UpdateProfile_Call) Return(_a0 *dto.UserResponse, _a1 int, _a2 error) *MockUserUsecase_UpdateProfile_Call {
+func (_c *MockUserUsecase_UpdateProfile_Call) Return(_a0 *dto_user.UserResponse, _a1 int, _a2 error) *MockUserUsecase_UpdateProfile_Call {
 	_c.Call.Return(_a0, _a1, _a2)
 	return _c
 }
 
-func (_c *MockUserUsecase_UpdateProfile_Call) RunAndReturn(run func(context.Context, string, *dto.UpdateProfileRequest) (*dto.UserResponse, int, error)) *MockUserUsecase_UpdateProfile_Call {
+func (_c *MockUserUsecase_UpdateProfile_Call) RunAndReturn(run func(context.Context, string, *dto_user.UpdateProfileRequest) (*dto_user.UserResponse, int, error)) *MockUserUsecase_UpdateProfile_Call {
 	_c.Call.Return(run)
 	return _c
 }

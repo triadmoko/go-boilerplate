@@ -1,7 +1,7 @@
 package usecase
 
 import (
-	"app/internal/features/auth/delivery/http/dto"
+	"app/internal/features/auth/delivery/http/dto_auth"
 	mocks "app/internal/mocks/repository"
 	"app/internal/shared/constants"
 	"app/internal/shared/delivery/http/middleware"
@@ -47,7 +47,7 @@ func TestRegister_Success(t *testing.T) {
 	uc, mockRepo := setupTest(t)
 	ctx := createTestContext()
 
-	req := dto.RegisterRequest{
+	req := dto_auth.RegisterRequest{
 		Email:     "test@example.com",
 		Username:  "testuser",
 		Password:  "password123",
@@ -76,7 +76,7 @@ func TestRegister_UserAlreadyExists(t *testing.T) {
 	uc, mockRepo := setupTest(t)
 	ctx := createTestContext()
 
-	req := dto.RegisterRequest{
+	req := dto_auth.RegisterRequest{
 		Email:     "existing@example.com",
 		Username:  "testuser",
 		Password:  "password123",
@@ -103,7 +103,7 @@ func TestRegister_UsernameAlreadyTaken(t *testing.T) {
 	uc, mockRepo := setupTest(t)
 	ctx := createTestContext()
 
-	req := dto.RegisterRequest{
+	req := dto_auth.RegisterRequest{
 		Email:     "test@example.com",
 		Username:  "existinguser",
 		Password:  "password123",
@@ -132,7 +132,7 @@ func TestRegister_CreateUserError(t *testing.T) {
 	uc, mockRepo := setupTest(t)
 	ctx := createTestContext()
 
-	req := dto.RegisterRequest{
+	req := dto_auth.RegisterRequest{
 		Email:     "test@example.com",
 		Username:  "testuser",
 		Password:  "password123",
@@ -162,7 +162,7 @@ func TestLogin_Success(t *testing.T) {
 	hashedPassword, err := crypto.HashPassword(password)
 	require.NoError(t, err)
 
-	req := dto.LoginRequest{
+	req := dto_auth.LoginRequest{
 		Email:    "test@example.com",
 		Password: password,
 	}
@@ -190,7 +190,7 @@ func TestLogin_UserNotFound(t *testing.T) {
 	uc, mockRepo := setupTest(t)
 	ctx := createTestContext()
 
-	req := dto.LoginRequest{
+	req := dto_auth.LoginRequest{
 		Email:    "nonexistent@example.com",
 		Password: "password123",
 	}
@@ -213,7 +213,7 @@ func TestLogin_InvalidPassword(t *testing.T) {
 	hashedPassword, err := crypto.HashPassword(correctPassword)
 	require.NoError(t, err)
 
-	req := dto.LoginRequest{
+	req := dto_auth.LoginRequest{
 		Email:    "test@example.com",
 		Password: "wrongpassword",
 	}

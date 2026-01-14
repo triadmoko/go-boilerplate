@@ -1,7 +1,7 @@
 package usecase
 
 import (
-	"app/internal/features/auth/delivery/http/dto"
+	"app/internal/features/auth/delivery/http/dto_auth"
 	"app/internal/shared/constants"
 	"app/internal/shared/delivery/http/middleware"
 	"app/internal/shared/domain/entity"
@@ -16,8 +16,8 @@ import (
 
 // AuthUsecase defines the interface for authentication use cases
 type AuthUsecase interface {
-	Register(ctx context.Context, req dto.RegisterRequest) (*dto.RegisterResponse, int, error)
-	Login(ctx context.Context, req dto.LoginRequest) (*dto.LoginResponse, int, error)
+	Register(ctx context.Context, req dto_auth.RegisterRequest) (*dto_auth.RegisterResponse, int, error)
+	Login(ctx context.Context, req dto_auth.LoginRequest) (*dto_auth.LoginResponse, int, error)
 }
 
 // authUsecase implements AuthUsecase interface
@@ -35,7 +35,7 @@ func NewAuthUsecase(userRepo repository.UserRepository, logger *logrus.Logger) A
 }
 
 // Register creates a new user
-func (a *authUsecase) Register(ctx context.Context, req dto.RegisterRequest) (*dto.RegisterResponse, int, error) {
+func (a *authUsecase) Register(ctx context.Context, req dto_auth.RegisterRequest) (*dto_auth.RegisterResponse, int, error) {
 	lang := middleware.GetLangFromContext(ctx)
 
 	// Check if user already exists by email
@@ -69,11 +69,11 @@ func (a *authUsecase) Register(ctx context.Context, req dto.RegisterRequest) (*d
 	}
 
 	// Convert to DTO response
-	return dto.ToRegisterResponse(user), http.StatusCreated, nil
+	return dto_auth.ToRegisterResponse(user), http.StatusCreated, nil
 }
 
 // Login authenticates a user
-func (a *authUsecase) Login(ctx context.Context, req dto.LoginRequest) (*dto.LoginResponse, int, error) {
+func (a *authUsecase) Login(ctx context.Context, req dto_auth.LoginRequest) (*dto_auth.LoginResponse, int, error) {
 	lang := middleware.GetLangFromContext(ctx)
 
 	// Get user by email
@@ -101,8 +101,8 @@ func (a *authUsecase) Login(ctx context.Context, req dto.LoginRequest) (*dto.Log
 	}
 
 	// Convert to DTO response
-	return &dto.LoginResponse{
-		User:  dto.ToRegisterResponse(user),
+	return &dto_auth.LoginResponse{
+		User:  dto_auth.ToRegisterResponse(user),
 		Token: token,
 	}, http.StatusOK, nil
 }

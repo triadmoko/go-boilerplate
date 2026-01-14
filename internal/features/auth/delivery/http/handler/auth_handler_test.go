@@ -1,7 +1,7 @@
 package handler
 
 import (
-	authdto "app/internal/features/auth/delivery/http/dto"
+	"app/internal/features/auth/delivery/http/dto_auth"
 	mocks "app/internal/mocks/usecase"
 	"app/internal/shared/constants"
 	"app/internal/shared/delivery/http/middleware"
@@ -40,7 +40,7 @@ func TestRegister_Success(t *testing.T) {
 	router := setupTestRouter()
 	router.POST("/register", setLanguageMiddleware, handler.Register)
 
-	reqBody := authdto.RegisterRequest{
+	reqBody := dto_auth.RegisterRequest{
 		Email:     "test@example.com",
 		Username:  "testuser",
 		Password:  "password123",
@@ -48,7 +48,7 @@ func TestRegister_Success(t *testing.T) {
 		LastName:  "User",
 	}
 
-	expectedUser := &authdto.RegisterResponse{
+	expectedUser := &dto_auth.RegisterResponse{
 		ID:        "user-123",
 		Email:     reqBody.Email,
 		Username:  reqBody.Username,
@@ -98,7 +98,7 @@ func TestRegister_ValidationError(t *testing.T) {
 	router.POST("/register", setLanguageMiddleware, handler.Register)
 
 	// Missing required fields
-	reqBody := authdto.RegisterRequest{
+	reqBody := dto_auth.RegisterRequest{
 		Email: "", // Empty email
 	}
 
@@ -124,7 +124,7 @@ func TestRegister_UsecaseError(t *testing.T) {
 	router := setupTestRouter()
 	router.POST("/register", setLanguageMiddleware, handler.Register)
 
-	reqBody := authdto.RegisterRequest{
+	reqBody := dto_auth.RegisterRequest{
 		Email:     "test@example.com",
 		Username:  "testuser",
 		Password:  "password123",
@@ -157,13 +157,13 @@ func TestLogin_Success(t *testing.T) {
 	router := setupTestRouter()
 	router.POST("/login", setLanguageMiddleware, handler.Login)
 
-	reqBody := authdto.LoginRequest{
+	reqBody := dto_auth.LoginRequest{
 		Email:    "test@example.com",
 		Password: "password123",
 	}
 
-	expectedResponse := &authdto.LoginResponse{
-		User: &authdto.RegisterResponse{
+	expectedResponse := &dto_auth.LoginResponse{
+		User: &dto_auth.RegisterResponse{
 			ID:       "user-123",
 			Email:    reqBody.Email,
 			Username: "testuser",
@@ -213,7 +213,7 @@ func TestLogin_ValidationError(t *testing.T) {
 	router.POST("/login", setLanguageMiddleware, handler.Login)
 
 	// Missing required fields
-	reqBody := authdto.LoginRequest{
+	reqBody := dto_auth.LoginRequest{
 		Email: "", // Empty email
 	}
 
@@ -239,7 +239,7 @@ func TestLogin_UsecaseError(t *testing.T) {
 	router := setupTestRouter()
 	router.POST("/login", setLanguageMiddleware, handler.Login)
 
-	reqBody := authdto.LoginRequest{
+	reqBody := dto_auth.LoginRequest{
 		Email:    "test@example.com",
 		Password: "wrongpassword",
 	}

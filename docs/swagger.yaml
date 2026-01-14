@@ -1,20 +1,20 @@
 basePath: /api/v1
 definitions:
-  dto.LoginRequest:
+  dto_auth.LoginRequest:
     properties:
       email:
         type: string
       password:
         type: string
     type: object
-  dto.LoginResponse:
+  dto_auth.LoginResponse:
     properties:
       token:
         type: string
       user:
-        $ref: '#/definitions/dto.RegisterResponse'
+        $ref: '#/definitions/dto_auth.RegisterResponse'
     type: object
-  dto.RegisterRequest:
+  dto_auth.RegisterRequest:
     properties:
       email:
         type: string
@@ -27,7 +27,7 @@ definitions:
       username:
         type: string
     type: object
-  dto.RegisterResponse:
+  dto_auth.RegisterResponse:
     properties:
       created_at:
         type: string
@@ -48,23 +48,23 @@ definitions:
       username:
         type: string
     type: object
-  dto.UpdateProfileRequest:
+  dto_user.UpdateProfileRequest:
     properties:
       first_name:
         type: string
       last_name:
         type: string
     type: object
-  dto.UserListResponse:
+  dto_user.UserListResponse:
     properties:
       pagination:
         $ref: '#/definitions/pkg.PaginationResponse'
       users:
         items:
-          $ref: '#/definitions/dto.UserResponse'
+          $ref: '#/definitions/dto_user.UserResponse'
         type: array
     type: object
-  dto.UserResponse:
+  dto_user.UserResponse:
     properties:
       birth_date:
         type: string
@@ -142,7 +142,7 @@ paths:
         name: request
         required: true
         schema:
-          $ref: '#/definitions/dto.LoginRequest'
+          $ref: '#/definitions/dto_auth.LoginRequest'
       produces:
       - application/json
       responses:
@@ -153,7 +153,7 @@ paths:
             - $ref: '#/definitions/response.Response'
             - properties:
                 data:
-                  $ref: '#/definitions/dto.LoginResponse'
+                  $ref: '#/definitions/dto_auth.LoginResponse'
               type: object
         "400":
           description: Bad Request
@@ -182,7 +182,7 @@ paths:
         name: request
         required: true
         schema:
-          $ref: '#/definitions/dto.RegisterRequest'
+          $ref: '#/definitions/dto_auth.RegisterRequest'
       produces:
       - application/json
       responses:
@@ -193,7 +193,7 @@ paths:
             - $ref: '#/definitions/response.Response'
             - properties:
                 data:
-                  $ref: '#/definitions/dto.RegisterResponse'
+                  $ref: '#/definitions/dto_auth.RegisterResponse'
               type: object
         "400":
           description: Bad Request
@@ -276,7 +276,7 @@ paths:
             - $ref: '#/definitions/response.Response'
             - properties:
                 data:
-                  $ref: '#/definitions/dto.UserListResponse'
+                  $ref: '#/definitions/dto_user.UserListResponse'
               type: object
         "400":
           description: Bad Request
@@ -310,7 +310,7 @@ paths:
             - $ref: '#/definitions/response.Response'
             - properties:
                 data:
-                  $ref: '#/definitions/dto.UserResponse'
+                  $ref: '#/definitions/dto_user.UserResponse'
               type: object
         "401":
           description: Unauthorized
@@ -339,7 +339,7 @@ paths:
         name: request
         required: true
         schema:
-          $ref: '#/definitions/dto.UpdateProfileRequest'
+          $ref: '#/definitions/dto_user.UpdateProfileRequest'
       produces:
       - application/json
       responses:
@@ -350,7 +350,7 @@ paths:
             - $ref: '#/definitions/response.Response'
             - properties:
                 data:
-                  $ref: '#/definitions/dto.UserResponse'
+                  $ref: '#/definitions/dto_user.UserResponse'
               type: object
         "400":
           description: Bad Request

@@ -1,7 +1,7 @@
 package handler
 
 import (
-	"app/internal/features/user/delivery/http/dto"
+	"app/internal/features/user/delivery/http/dto_user"
 	"app/internal/features/user/usecase"
 	"app/internal/shared/constants"
 	"app/internal/shared/delivery/http/middleware"
@@ -32,7 +32,7 @@ func NewUserHandler(userUsecase usecase.UserUsecase) *UserHandler {
 //	@Accept			json
 //	@Produce		json
 //	@Security		BearerAuth
-//	@Success		200	{object}	response.Response{data=dto.UserResponse}
+//	@Success		200	{object}	response.Response{data=dto_user.UserResponse}
 //	@Failure		401	{object}	response.Response
 //	@Failure		404	{object}	response.Response
 //	@Failure		500	{object}	response.Response
@@ -70,8 +70,8 @@ func (h *UserHandler) GetProfile(c *gin.Context) {
 //	@Accept			json
 //	@Produce		json
 //	@Security		BearerAuth
-//	@Param			request	body		dto.UpdateProfileRequest	true	"Profile update data"
-//	@Success		200		{object}	response.Response{data=dto.UserResponse}
+//	@Param			request	body		dto_user.UpdateProfileRequest	true	"Profile update data"
+//	@Success		200		{object}	response.Response{data=dto_user.UserResponse}
 //	@Failure		400		{object}	response.Response
 //	@Failure		401		{object}	response.Response
 //	@Failure		404		{object}	response.Response
@@ -93,7 +93,7 @@ func (h *UserHandler) UpdateProfile(c *gin.Context) {
 		return
 	}
 
-	var req dto.UpdateProfileRequest
+	var req dto_user.UpdateProfileRequest
 	if err := c.ShouldBindJSON(&req); err != nil {
 		response.NewResponse(c, http.StatusBadRequest, nil, constants.GetErrorMessage(constants.ValidationFailed, lang), map[string][]string{
 			"body": {err.Error()},
@@ -137,7 +137,7 @@ func (h *UserHandler) UpdateProfile(c *gin.Context) {
 //	@Param			provider	query		string	false	"Filter by provider"
 //	@Param			genders		query		string	false	"Filter by multiple genders (comma-separated)"
 //	@Param			roles		query		string	false	"Filter by multiple roles (comma-separated)"
-//	@Success		200			{object}	response.Response{data=dto.UserListResponse}
+//	@Success		200			{object}	response.Response{data=dto_user.UserListResponse}
 //	@Failure		400			{object}	response.Response
 //	@Failure		401			{object}	response.Response
 //	@Failure		500			{object}	response.Response
@@ -162,7 +162,7 @@ func (h *UserHandler) GetUsers(c *gin.Context) {
 	}
 
 	// Build response with DTO
-	responseData := dto.UserListResponse{
+	responseData := dto_user.UserListResponse{
 		Users:      users,
 		Pagination: pagination,
 	}

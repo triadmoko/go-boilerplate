@@ -1,7 +1,7 @@
 package handler
 
 import (
-	"app/internal/features/auth/delivery/http/dto"
+	"app/internal/features/auth/delivery/http/dto_auth"
 	"app/internal/features/auth/usecase"
 	"app/internal/shared/constants"
 	"app/internal/shared/delivery/http/middleware"
@@ -30,15 +30,15 @@ func NewAuthHandler(authUsecase usecase.AuthUsecase) *AuthHandler {
 //	@Tags			auth
 //	@Accept			json
 //	@Produce		json
-//	@Param			request	body		dto.RegisterRequest	true	"User registration data"
-//	@Success		201		{object}	response.Response{data=dto.RegisterResponse}
+//	@Param			request	body		dto_auth.RegisterRequest	true	"User registration data"
+//	@Success		201		{object}	response.Response{data=dto_auth.RegisterResponse}
 //	@Failure		400		{object}	response.Response
 //	@Failure		500		{object}	response.Response
 //	@Router			/api/v1/auth/register [post]
 func (h *AuthHandler) Register(c *gin.Context) {
 	lang := middleware.GetLangFromGin(c)
 
-	var req dto.RegisterRequest
+	var req dto_auth.RegisterRequest
 	if err := c.ShouldBindJSON(&req); err != nil {
 		response.NewResponse(c, http.StatusBadRequest, nil, constants.GetErrorMessage(constants.ValidationFailed, lang), map[string][]string{
 			"body": {err.Error()},
@@ -68,8 +68,8 @@ func (h *AuthHandler) Register(c *gin.Context) {
 //	@Tags			auth
 //	@Accept			json
 //	@Produce		json
-//	@Param			request	body		dto.LoginRequest	true	"User login data"
-//	@Success		200		{object}	response.Response{data=dto.LoginResponse}
+//	@Param			request	body		dto_auth.LoginRequest	true	"User login data"
+//	@Success		200		{object}	response.Response{data=dto_auth.LoginResponse}
 //	@Failure		400		{object}	response.Response
 //	@Failure		401		{object}	response.Response
 //	@Failure		500		{object}	response.Response
@@ -77,7 +77,7 @@ func (h *AuthHandler) Register(c *gin.Context) {
 func (h *AuthHandler) Login(c *gin.Context) {
 	lang := middleware.GetLangFromGin(c)
 
-	var req dto.LoginRequest
+	var req dto_auth.LoginRequest
 	if err := c.ShouldBindJSON(&req); err != nil {
 		response.NewResponse(c, http.StatusBadRequest, nil, constants.GetErrorMessage(constants.ValidationFailed, lang), map[string][]string{
 			"body": {err.Error()},

@@ -1,4 +1,4 @@
-package dto
+package dto_auth
 
 import (
 	"app/internal/shared/constants"

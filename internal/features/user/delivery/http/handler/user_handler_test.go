@@ -1,7 +1,7 @@
 package handler
 
 import (
-	"app/internal/features/user/delivery/http/dto"
+	"app/internal/features/user/delivery/http/dto_user"
 	mocks "app/internal/mocks/usecase"
 	"app/internal/shared/constants"
 	"app/internal/shared/delivery/http/middleware"
@@ -54,7 +54,7 @@ func TestGetProfile_Success(t *testing.T) {
 	router := setupTestRouter()
 	router.GET("/profile", setUserIDMiddleware(userID), handler.GetProfile)
 
-	expectedUser := &dto.UserResponse{
+	expectedUser := &dto_user.UserResponse{
 		ID:        userID,
 		Email:     "test@example.com",
 		Username:  "testuser",
@@ -117,12 +117,12 @@ func TestUpdateProfile_Success(t *testing.T) {
 	router := setupTestRouter()
 	router.PUT("/profile", setUserIDMiddleware(userID), handler.UpdateProfile)
 
-	reqBody := dto.UpdateProfileRequest{
+	reqBody := dto_user.UpdateProfileRequest{
 		FirstName: "NewFirst",
 		LastName:  "NewLast",
 	}
 
-	expectedUser := &dto.UserResponse{
+	expectedUser := &dto_user.UserResponse{
 		ID:        userID,
 		Email:     "test@example.com",
 		Username:  "testuser",
@@ -155,7 +155,7 @@ func TestUpdateProfile_NoUserID(t *testing.T) {
 	router := setupTestRouter()
 	router.PUT("/profile", setLanguageMiddleware, handler.UpdateProfile)
 
-	reqBody := dto.UpdateProfileRequest{
+	reqBody := dto_user.UpdateProfileRequest{
 		FirstName: "NewFirst",
 	}
 
@@ -193,7 +193,7 @@ func TestUpdateProfile_ValidationError(t *testing.T) {
 	router.PUT("/profile", setUserIDMiddleware(userID), handler.UpdateProfile)
 
 	// Empty request - validation should fail
-	reqBody := dto.UpdateProfileRequest{
+	reqBody := dto_user.UpdateProfileRequest{
 		FirstName: "",
 		LastName:  "",
 	}
@@ -220,7 +220,7 @@ func TestUpdateProfile_UsecaseError(t *testing.T) {
 	router := setupTestRouter()
 	router.PUT("/profile", setUserIDMiddleware(userID), handler.UpdateProfile)
 
-	reqBody := dto.UpdateProfileRequest{
+	reqBody := dto_user.UpdateProfileRequest{
 		FirstName: "NewFirst",
 		LastName:  "NewLast",
 	}
@@ -245,7 +245,7 @@ func TestGetUsers_Success(t *testing.T) {
 	router := setupTestRouter()
 	router.GET("/users", setLanguageMiddleware, handler.GetUsers)
 
-	expectedUsers := []*dto.UserResponse{
+	expectedUsers := []*dto_user.UserResponse{
 		{
 			ID:        "user-1",
 			Email:     "user1@example.com",
@@ -284,7 +284,7 @@ func TestGetUsers_WithPagination(t *testing.T) {
 	router := setupTestRouter()
 	router.GET("/users", setLanguageMiddleware, handler.GetUsers)
 
-	expectedUsers := []*dto.UserResponse{
+	expectedUsers := []*dto_user.UserResponse{
 		{
 			ID:        "user-3",
 			Email:     "user3@example.com",
@@ -311,7 +311,7 @@ func TestGetUsers_InvalidPagination(t *testing.T) {
 	router := setupTestRouter()
 	router.GET("/users", setLanguageMiddleware, handler.GetUsers)
 
-	expectedUsers := []*dto.UserResponse{}
+	expectedUsers := []*dto_user.UserResponse{}
 
 	// Invalid values should be handled by the usecase
 	mockUsecase.EXPECT().

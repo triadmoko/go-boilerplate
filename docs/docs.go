@@ -44,7 +44,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/dto.LoginRequest"
+                            "$ref": "#/definitions/dto_auth.LoginRequest"
                         }
                     }
                 ],
@@ -60,7 +60,7 @@ const docTemplate = `{
                                     "type": "object",
                                     "properties": {
                                         "data": {
-                                            "$ref": "#/definitions/dto.LoginResponse"
+                                            "$ref": "#/definitions/dto_auth.LoginResponse"
                                         }
                                     }
                                 }
@@ -108,7 +108,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/dto.RegisterRequest"
+                            "$ref": "#/definitions/dto_auth.RegisterRequest"
                         }
                     }
                 ],
@@ -124,7 +124,7 @@ const docTemplate = `{
                                     "type": "object",
                                     "properties": {
                                         "data": {
-                                            "$ref": "#/definitions/dto.RegisterResponse"
+                                            "$ref": "#/definitions/dto_auth.RegisterResponse"
                                         }
                                     }
                                 }
@@ -258,7 +258,7 @@ const docTemplate = `{
                                     "type": "object",
                                     "properties": {
                                         "data": {
-                                            "$ref": "#/definitions/dto.UserListResponse"
+                                            "$ref": "#/definitions/dto_user.UserListResponse"
                                         }
                                     }
                                 }
@@ -316,7 +316,7 @@ const docTemplate = `{
                                     "type": "object",
                                     "properties": {
                                         "data": {
-                                            "$ref": "#/definitions/dto.UserResponse"
+                                            "$ref": "#/definitions/dto_user.UserResponse"
                                         }
                                     }
                                 }
@@ -367,7 +367,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/dto.UpdateProfileRequest"
+                            "$ref": "#/definitions/dto_user.UpdateProfileRequest"
                         }
                     }
                 ],
@@ -383,7 +383,7 @@ const docTemplate = `{
                                     "type": "object",
                                     "properties": {
                                         "data": {
-                                            "$ref": "#/definitions/dto.UserResponse"
+                                            "$ref": "#/definitions/dto_user.UserResponse"
                                         }
                                     }
                                 }
@@ -419,7 +419,7 @@ const docTemplate = `{
         }
     },
     "definitions": {
-        "dto.LoginRequest": {
+        "dto_auth.LoginRequest": {
             "type": "object",
             "properties": {
                 "email": {
@@ -430,18 +430,18 @@ const docTemplate = `{
                 }
             }
         },
-        "dto.LoginResponse": {
+        "dto_auth.LoginResponse": {
             "type": "object",
             "properties": {
                 "token": {
                     "type": "string"
                 },
                 "user": {
-                    "$ref": "#/definitions/dto.RegisterResponse"
+                    "$ref": "#/definitions/dto_auth.RegisterResponse"
                 }
             }
         },
-        "dto.RegisterRequest": {
+        "dto_auth.RegisterRequest": {
             "type": "object",
             "properties": {
                 "email": {
@@ -461,7 +461,7 @@ const docTemplate = `{
                 }
             }
         },
-        "dto.RegisterResponse": {
+        "dto_auth.RegisterResponse": {
             "type": "object",
             "properties": {
                 "created_at": {
@@ -493,7 +493,7 @@ const docTemplate = `{
                 }
             }
         },
-        "dto.UpdateProfileRequest": {
+        "dto_user.UpdateProfileRequest": {
             "type": "object",
             "properties": {
                 "first_name": {
@@ -504,7 +504,7 @@ const docTemplate = `{
                 }
             }
         },
-        "dto.UserListResponse": {
+        "dto_user.UserListResponse": {
             "type": "object",
             "properties": {
                 "pagination": {
@@ -513,12 +513,12 @@ const docTemplate = `{
                 "users": {
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/dto.UserResponse"
+                        "$ref": "#/definitions/dto_user.UserResponse"
                     }
                 }
             }
         },
-        "dto.UserResponse": {
+        "dto_user.UserResponse": {
             "type": "object",
             "properties": {
                 "birth_date": {
