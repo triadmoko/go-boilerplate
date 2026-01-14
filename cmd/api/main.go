@@ -1,6 +1,7 @@
 package main
 
 import (
+	_ "app/docs"
 	"app/internal/app"
 	"app/internal/core/config"
 	"context"
