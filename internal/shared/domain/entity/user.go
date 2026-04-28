@@ -13,8 +13,7 @@ type User struct {
 	Email     string         `json:"email" gorm:"type:varchar(255);uniqueIndex;not null"`
 	Username  string         `json:"username" gorm:"type:varchar(100);uniqueIndex;not null"`
 	Password  string         `json:"-" gorm:"type:varchar(255);not null"`
-	FirstName string         `json:"first_name" gorm:"type:varchar(100);not null"`
-	LastName  string         `json:"last_name" gorm:"type:varchar(100);not null"`
+	Name      string         `json:"name" gorm:"type:varchar(200);not null"`
 	Phone     *string        `json:"phone,omitempty" gorm:"type:varchar(20)"`
 	Status    string         `json:"status" gorm:"type:varchar(50);default:'active'"`
 	BirthDate *time.Time     `json:"birth_date,omitempty" gorm:"type:date"`
@@ -33,15 +32,14 @@ func (User) TableName() string {
 }
 
 // NewUser creates a new user entity with generated UUID
-func NewUser(email, username, password, firstName, lastName string) *User {
+func NewUser(email, username, password, name string) *User {
 	return &User{
-		ID:        uuid.New().String(),
-		Email:     email,
-		Username:  username,
-		Password:  password,
-		FirstName: firstName,
-		LastName:  lastName,
-		IsActive:  true,
+		ID:       uuid.New().String(),
+		Email:    email,
+		Username: username,
+		Password: password,
+		Name:     name,
+		IsActive: true,
 	}
 }
 

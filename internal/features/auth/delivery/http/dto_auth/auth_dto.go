@@ -12,8 +12,7 @@ type RegisterRequest struct {
 	Email     string `json:"email"`
 	Username  string `json:"username"`
 	Password  string `json:"password"`
-	FirstName string `json:"first_name"`
-	LastName  string `json:"last_name"`
+	Name      string `json:"name"`
 }
 
 // Validate validates RegisterRequest fields
@@ -46,14 +45,9 @@ func (r *RegisterRequest) Validate(lang constants.Lang) map[string][]string {
 		errors["password"] = append(errors["password"], fmt.Sprintf(constants.GetValidationMessage(constants.PasswordTooShort, lang), 6))
 	}
 
-	// FirstName validation
-	if r.FirstName == "" {
-		errors["first_name"] = append(errors["first_name"], fmt.Sprintf(constants.GetValidationMessage(constants.Required, lang), "first_name"))
-	}
-
-	// LastName validation
-	if r.LastName == "" {
-		errors["last_name"] = append(errors["last_name"], fmt.Sprintf(constants.GetValidationMessage(constants.Required, lang), "last_name"))
+	// Name validation
+	if r.Name == "" {
+		errors["name"] = append(errors["name"], fmt.Sprintf(constants.GetValidationMessage(constants.Required, lang), "name"))
 	}
 
 	return errors
@@ -89,8 +83,7 @@ type RegisterResponse struct {
 	ID        string    `json:"id"`
 	Email     string    `json:"email"`
 	Username  string    `json:"username"`
-	FirstName string    `json:"first_name"`
-	LastName  string    `json:"last_name"`
+	Name      string    `json:"name"`
 	Status    string    `json:"status"`
 	Role      string    `json:"role"`
 	IsActive  bool      `json:"is_active"`
@@ -103,8 +96,7 @@ func ToRegisterResponse(user *entity.User) *RegisterResponse {
 		ID:        user.ID,
 		Email:     user.Email,
 		Username:  user.Username,
-		FirstName: user.FirstName,
-		LastName:  user.LastName,
+		Name:      user.Name,
 		Status:    user.Status,
 		Role:      user.Role,
 		IsActive:  user.IsActive,

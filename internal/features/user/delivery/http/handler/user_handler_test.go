@@ -55,11 +55,10 @@ func TestGetProfile_Success(t *testing.T) {
 	router.GET("/profile", setUserIDMiddleware(userID), handler.GetProfile)
 
 	expectedUser := &dto_user.UserResponse{
-		ID:        userID,
-		Email:     "test@example.com",
-		Username:  "testuser",
-		FirstName: "Test",
-		LastName:  "User",
+		ID:       userID,
+		Email:    "test@example.com",
+		Username: "testuser",
+		Name:     "Test User",
 	}
 
 	mockUsecase.EXPECT().
@@ -118,16 +117,14 @@ func TestUpdateProfile_Success(t *testing.T) {
 	router.PUT("/profile", setUserIDMiddleware(userID), handler.UpdateProfile)
 
 	reqBody := dto_user.UpdateProfileRequest{
-		FirstName: "NewFirst",
-		LastName:  "NewLast",
+		Name: "NewFirst NewLast",
 	}
 
 	expectedUser := &dto_user.UserResponse{
-		ID:        userID,
-		Email:     "test@example.com",
-		Username:  "testuser",
-		FirstName: reqBody.FirstName,
-		LastName:  reqBody.LastName,
+		ID:       userID,
+		Email:    "test@example.com",
+		Username: "testuser",
+		Name:     reqBody.Name,
 	}
 
 	mockUsecase.EXPECT().
@@ -156,7 +153,7 @@ func TestUpdateProfile_NoUserID(t *testing.T) {
 	router.PUT("/profile", setLanguageMiddleware, handler.UpdateProfile)
 
 	reqBody := dto_user.UpdateProfileRequest{
-		FirstName: "NewFirst",
+		Name: "NewFirst",
 	}
 
 	body, _ := json.Marshal(reqBody)
@@ -194,8 +191,7 @@ func TestUpdateProfile_ValidationError(t *testing.T) {
 
 	// Empty request - validation should fail
 	reqBody := dto_user.UpdateProfileRequest{
-		FirstName: "",
-		LastName:  "",
+		Name: "",
 	}
 
 	body, _ := json.Marshal(reqBody)
@@ -221,8 +217,7 @@ func TestUpdateProfile_UsecaseError(t *testing.T) {
 	router.PUT("/profile", setUserIDMiddleware(userID), handler.UpdateProfile)
 
 	reqBody := dto_user.UpdateProfileRequest{
-		FirstName: "NewFirst",
-		LastName:  "NewLast",
+		Name: "NewFirst NewLast",
 	}
 
 	mockUsecase.EXPECT().
@@ -247,18 +242,16 @@ func TestGetUsers_Success(t *testing.T) {
 
 	expectedUsers := []*dto_user.UserResponse{
 		{
-			ID:        "user-1",
-			Email:     "user1@example.com",
-			Username:  "user1",
-			FirstName: "User",
-			LastName:  "One",
+			ID:       "user-1",
+			Email:    "user1@example.com",
+			Username: "user1",
+			Name:     "User One",
 		},
 		{
-			ID:        "user-2",
-			Email:     "user2@example.com",
-			Username:  "user2",
-			FirstName: "User",
-			LastName:  "Two",
+			ID:       "user-2",
+			Email:    "user2@example.com",
+			Username: "user2",
+			Name:     "User Two",
 		},
 	}
 
@@ -286,11 +279,10 @@ func TestGetUsers_WithPagination(t *testing.T) {
 
 	expectedUsers := []*dto_user.UserResponse{
 		{
-			ID:        "user-3",
-			Email:     "user3@example.com",
-			Username:  "user3",
-			FirstName: "User",
-			LastName:  "Three",
+			ID:       "user-3",
+			Email:    "user3@example.com",
+			Username: "user3",
+			Name:     "User Three",
 		},
 	}
 

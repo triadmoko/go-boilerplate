@@ -100,14 +100,9 @@ func (r *userRepository) List(ctx context.Context, filter entity.FilterUser) ([]
 			return db.Where("username = ?", filter.Username)
 		})
 	}
-	if filter.FirstName != "" {
+	if filter.Name != "" {
 		scopes = append(scopes, func(db *gorm.DB) *gorm.DB {
-			return db.Where("first_name LIKE ?", "%"+filter.FirstName+"%")
-		})
-	}
-	if filter.LastName != "" {
-		scopes = append(scopes, func(db *gorm.DB) *gorm.DB {
-			return db.Where("last_name LIKE ?", "%"+filter.LastName+"%")
+			return db.Where("name LIKE ?", "%"+filter.Name+"%")
 		})
 	}
 	if filter.IsActive != nil {

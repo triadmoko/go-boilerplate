@@ -44,16 +44,14 @@ func TestRegister_Success(t *testing.T) {
 		Email:     "test@example.com",
 		Username:  "testuser",
 		Password:  "password123",
-		FirstName: "Test",
-		LastName:  "User",
+		Name: "Test User",
 	}
 
 	expectedUser := &dto_auth.RegisterResponse{
-		ID:        "user-123",
-		Email:     reqBody.Email,
-		Username:  reqBody.Username,
-		FirstName: reqBody.FirstName,
-		LastName:  reqBody.LastName,
+		ID:       "user-123",
+		Email:    reqBody.Email,
+		Username: reqBody.Username,
+		Name:     reqBody.Name,
 	}
 
 	mockUsecase.EXPECT().
@@ -128,8 +126,7 @@ func TestRegister_UsecaseError(t *testing.T) {
 		Email:     "test@example.com",
 		Username:  "testuser",
 		Password:  "password123",
-		FirstName: "Test",
-		LastName:  "User",
+		Name: "Test User",
 	}
 
 	mockUsecase.EXPECT().

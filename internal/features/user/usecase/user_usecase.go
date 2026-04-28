@@ -60,11 +60,8 @@ func (u *userUsecase) UpdateProfile(ctx context.Context, userID string, req *dto
 	}
 
 	// Update fields
-	if req.FirstName != "" {
-		user.FirstName = req.FirstName
-	}
-	if req.LastName != "" {
-		user.LastName = req.LastName
+	if req.Name != "" {
+		user.Name = req.Name
 	}
 
 	// Build filter for update
@@ -103,8 +100,7 @@ func (u *userUsecase) GetUsers(ctx context.Context, queries map[string]string) (
 		ID:        queries["id"],
 		Email:     queries["email"],
 		Username:  queries["username"],
-		FirstName: queries["first_name"],
-		LastName:  queries["last_name"],
+		Name:      queries["name"],
 		Status:    queries["status"],
 		Gender:    queries["gender"],
 		Role:      queries["role"],

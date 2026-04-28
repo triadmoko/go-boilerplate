@@ -51,8 +51,7 @@ func TestRegister_Success(t *testing.T) {
 		Email:     "test@example.com",
 		Username:  "testuser",
 		Password:  "password123",
-		FirstName: "Test",
-		LastName:  "User",
+		Name: "Test User",
 	}
 
 	// Mock: email not found
@@ -80,8 +79,7 @@ func TestRegister_UserAlreadyExists(t *testing.T) {
 		Email:     "existing@example.com",
 		Username:  "testuser",
 		Password:  "password123",
-		FirstName: "Test",
-		LastName:  "User",
+		Name: "Test User",
 	}
 
 	existingUser := &entity.User{
@@ -107,8 +105,7 @@ func TestRegister_UsernameAlreadyTaken(t *testing.T) {
 		Email:     "test@example.com",
 		Username:  "existinguser",
 		Password:  "password123",
-		FirstName: "Test",
-		LastName:  "User",
+		Name: "Test User",
 	}
 
 	existingUser := &entity.User{
@@ -136,8 +133,7 @@ func TestRegister_CreateUserError(t *testing.T) {
 		Email:     "test@example.com",
 		Username:  "testuser",
 		Password:  "password123",
-		FirstName: "Test",
-		LastName:  "User",
+		Name: "Test User",
 	}
 
 	// Mock: email not found

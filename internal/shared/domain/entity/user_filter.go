@@ -8,8 +8,7 @@ type FilterUser struct {
 	ID        string `json:"id,omitempty"`
 	Email     string `json:"email,omitempty"`
 	Username  string `json:"username,omitempty"`
-	FirstName string `json:"first_name,omitempty"`
-	LastName  string `json:"last_name,omitempty"`
+	Name      string `json:"name,omitempty"`
 	IsActive  *bool  `json:"is_active,omitempty"` // Pointer to distinguish between false and not set
 
 	// Extended filters (add these fields to User entity if needed)

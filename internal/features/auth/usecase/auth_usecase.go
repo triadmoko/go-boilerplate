@@ -60,7 +60,7 @@ func (a *authUsecase) Register(ctx context.Context, req dto_auth.RegisterRequest
 	}
 
 	// Create user entity using shared entity
-	user := entity.NewUser(req.Email, req.Username, hashedPassword, req.FirstName, req.LastName)
+	user := entity.NewUser(req.Email, req.Username, hashedPassword, req.Name)
 
 	// Save user
 	if err := a.userRepo.Create(ctx, user); err != nil {

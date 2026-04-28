@@ -55,25 +55,23 @@ func TestUserRepositoryTestSuite(t *testing.T) {
 
 func (s *UserRepositoryTestSuite) TestCreate_Success() {
 	user := &entity.User{
-		ID:        "user-123",
-		Email:     "test@example.com",
-		Username:  "testuser",
-		Password:  "hashedpassword",
-		FirstName: "Test",
-		LastName:  "User",
-		IsActive:  true,
+		ID:       "user-123",
+		Email:    "test@example.com",
+		Username: "testuser",
+		Password: "hashedpassword",
+		Name:     "Test User",
+		IsActive: true,
 	}
 
 	s.mock.ExpectBegin()
 	s.mock.ExpectExec(regexp.QuoteMeta(
-		`INSERT INTO "users" ("id","email","username","password","first_name","last_name","phone","status","birth_date","gender","role","provider","is_active","created_at","updated_at","deleted_at") VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16)`)).
+		`INSERT INTO "users" ("id","email","username","password","name","phone","status","birth_date","gender","role","provider","is_active","created_at","updated_at","deleted_at") VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15)`)).
 		WithArgs(
 			user.ID,
 			user.Email,
 			user.Username,
 			user.Password,
-			user.FirstName,
-			user.LastName,
+			user.Name,
 			nil,      // phone
 			"active", // status (default value)
 			nil,      // birth_date
@@ -96,13 +94,12 @@ func (s *UserRepositoryTestSuite) TestCreate_Success() {
 
 func (s *UserRepositoryTestSuite) TestCreate_Error() {
 	user := &entity.User{
-		ID:        "user-123",
-		Email:     "test@example.com",
-		Username:  "testuser",
-		Password:  "hashedpassword",
-		FirstName: "Test",
-		LastName:  "User",
-		IsActive:  true,
+		ID:       "user-123",
+		Email:    "test@example.com",
+		Username: "testuser",
+		Password: "hashedpassword",
+		Name:     "Test User",
+		IsActive: true,
 	}
 
 	s.mock.ExpectBegin()
@@ -120,8 +117,8 @@ func (s *UserRepositoryTestSuite) TestGetByID_Success() {
 	userID := "user-123"
 	now := time.Now()
 
-	rows := sqlmock.NewRows([]string{"id", "email", "username", "password", "first_name", "last_name", "is_active", "created_at", "updated_at", "deleted_at"}).
-		AddRow(userID, "test@example.com", "testuser", "hashedpassword", "Test", "User", true, now, now, nil)
+	rows := sqlmock.NewRows([]string{"id", "email", "username", "password", "name", "is_active", "created_at", "updated_at", "deleted_at"}).
+		AddRow(userID, "test@example.com", "testuser", "hashedpassword", "Test User", true, now, now, nil)
 
 	s.mock.ExpectQuery(regexp.QuoteMeta(
 		`SELECT * FROM "users" WHERE id = $1 AND "users"."deleted_at" IS NULL ORDER BY "users"."id" LIMIT $2`)).
@@ -155,8 +152,8 @@ func (s *UserRepositoryTestSuite) TestGetByEmail_Success() {
 	email := "test@example.com"
 	now := time.Now()
 
-	rows := sqlmock.NewRows([]string{"id", "email", "username", "password", "first_name", "last_name", "is_active", "created_at", "updated_at", "deleted_at"}).
-		AddRow("user-123", email, "testuser", "hashedpassword", "Test", "User", true, now, now, nil)
+	rows := sqlmock.NewRows([]string{"id", "email", "username", "password", "name", "is_active", "created_at", "updated_at", "deleted_at"}).
+		AddRow("user-123", email, "testuser", "hashedpassword", "Test User", true, now, now, nil)
 
 	s.mock.ExpectQuery(regexp.QuoteMeta(
 		`SELECT * FROM "users" WHERE email = $1 AND "users"."deleted_at" IS NULL ORDER BY "users"."id" LIMIT $2`)).
@@ -189,8 +186,8 @@ func (s *UserRepositoryTestSuite) TestGetByUsername_Success() {
 	username := "testuser"
 	now := time.Now()
 
-	rows := sqlmock.NewRows([]string{"id", "email", "username", "password", "first_name", "last_name", "is_active", "created_at", "updated_at", "deleted_at"}).
-		AddRow("user-123", "test@example.com", username, "hashedpassword", "Test", "User", true, now, now, nil)
+	rows := sqlmock.NewRows([]string{"id", "email", "username", "password", "name", "is_active", "created_at", "updated_at", "deleted_at"}).
+		AddRow("user-123", "test@example.com", username, "hashedpassword", "Test User", true, now, now, nil)
 
 	s.mock.ExpectQuery(regexp.QuoteMeta(
 		`SELECT * FROM "users" WHERE username = $1 AND "users"."deleted_at" IS NULL ORDER BY "users"."id" LIMIT $2`)).
@@ -225,8 +222,7 @@ func (s *UserRepositoryTestSuite) TestUpdate_Success() {
 		Email:     "test@example.com",
 		Username:  "testuser",
 		Password:  "hashedpassword",
-		FirstName: "Updated",
-		LastName:  "User",
+		Name: "Updated User",
 		IsActive:  true,
 	}
 
@@ -251,8 +247,7 @@ func (s *UserRepositoryTestSuite) TestUpdate_Error() {
 		Email:     "test@example.com",
 		Username:  "testuser",
 		Password:  "hashedpassword",
-		FirstName: "Updated",
-		LastName:  "User",
+		Name: "Updated User",
 		IsActive:  true,
 	}
 
@@ -309,9 +304,9 @@ func (s *UserRepositoryTestSuite) TestList_Success() {
 		PerPage: 10,
 	}
 
-	rows := sqlmock.NewRows([]string{"id", "email", "username", "password", "first_name", "last_name", "is_active", "created_at", "updated_at", "deleted_at"}).
-		AddRow("user-1", "user1@example.com", "user1", "hashedpassword", "User", "One", true, now, now, nil).
-		AddRow("user-2", "user2@example.com", "user2", "hashedpassword", "User", "Two", true, now, now, nil)
+	rows := sqlmock.NewRows([]string{"id", "email", "username", "password", "name", "is_active", "created_at", "updated_at", "deleted_at"}).
+		AddRow("user-1", "user1@example.com", "user1", "hashedpassword", "User One", true, now, now, nil).
+		AddRow("user-2", "user2@example.com", "user2", "hashedpassword", "User Two", true, now, now, nil)
 
 	s.mock.ExpectQuery(regexp.QuoteMeta(
 		`SELECT * FROM "users" WHERE deleted_at IS NULL AND "users"."deleted_at" IS NULL ORDER BY created_at DESC LIMIT $1 OFFSET $2`)).
@@ -337,7 +332,7 @@ func (s *UserRepositoryTestSuite) TestList_Empty() {
 		PerPage: 10,
 	}
 
-	rows := sqlmock.NewRows([]string{"id", "email", "username", "password", "first_name", "last_name", "is_active", "created_at", "updated_at", "deleted_at"})
+	rows := sqlmock.NewRows([]string{"id", "email", "username", "password", "name", "is_active", "created_at", "updated_at", "deleted_at"})
 
 	// When offset is 0, GORM doesn't add OFFSET to the query
 	s.mock.ExpectQuery(regexp.QuoteMeta(

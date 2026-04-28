@@ -19,6 +19,7 @@ type ServerConfig struct {
 
 // DatabaseConfig holds database configuration
 type DatabaseConfig struct {
+	URL     string
 	Host    string
 	Port    string
 	User    string
@@ -40,6 +41,7 @@ func Load() Config {
 			Host: getEnv("SERVER_HOST", "0.0.0.0"),
 		},
 		Database: DatabaseConfig{
+			URL:     getEnv("DATABASE_URL", ""),
 			Host:    getEnv("DB_HOST", "localhost"),
 			Port:    getEnv("DB_PORT", "5432"),
 			User:    getEnv("DB_USER", "postgres"),

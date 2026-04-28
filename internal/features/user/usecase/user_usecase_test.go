@@ -41,12 +41,11 @@ func TestGetProfile_Success(t *testing.T) {
 
 	userID := "user-123"
 	expectedUser := &entity.User{
-		ID:        userID,
-		Email:     "test@example.com",
-		Username:  "testuser",
-		Password:  "hashedpassword",
-		FirstName: "Test",
-		LastName:  "User",
+		ID:       userID,
+		Email:    "test@example.com",
+		Username: "testuser",
+		Password: "hashedpassword",
+		Name:     "Test User",
 	}
 
 	mockRepo.EXPECT().GetByID(ctx, userID).Return(expectedUser, nil)
@@ -82,17 +81,15 @@ func TestUpdateProfile_Success(t *testing.T) {
 
 	userID := "user-123"
 	existingUser := &entity.User{
-		ID:        userID,
-		Email:     "test@example.com",
-		Username:  "testuser",
-		Password:  "hashedpassword",
-		FirstName: "Old",
-		LastName:  "Name",
+		ID:       userID,
+		Email:    "test@example.com",
+		Username: "testuser",
+		Password: "hashedpassword",
+		Name:     "Old Name",
 	}
 
 	req := &dto_user.UpdateProfileRequest{
-		FirstName: "New",
-		LastName:  "Name",
+		Name: "New Name",
 	}
 
 	mockRepo.EXPECT().GetByID(ctx, userID).Return(existingUser, nil)
@@ -103,8 +100,7 @@ func TestUpdateProfile_Success(t *testing.T) {
 	require.NoError(t, err)
 	assert.Equal(t, http.StatusOK, status)
 	assert.NotNil(t, user)
-	assert.Equal(t, "New", user.FirstName)
-	assert.Equal(t, "Name", user.LastName)
+	assert.Equal(t, "New Name", user.Name)
 	// Password is not in the UserResponse DTO
 }
 
@@ -114,8 +110,7 @@ func TestUpdateProfile_UserNotFound(t *testing.T) {
 
 	userID := "nonexistent-user"
 	req := &dto_user.UpdateProfileRequest{
-		FirstName: "New",
-		LastName:  "Name",
+		Name: "New Name",
 	}
 
 	mockRepo.EXPECT().GetByID(ctx, userID).Return(nil, errors.New("not found"))
@@ -133,17 +128,15 @@ func TestUpdateProfile_UpdateError(t *testing.T) {
 
 	userID := "user-123"
 	existingUser := &entity.User{
-		ID:        userID,
-		Email:     "test@example.com",
-		Username:  "testuser",
-		Password:  "hashedpassword",
-		FirstName: "Old",
-		LastName:  "Name",
+		ID:       userID,
+		Email:    "test@example.com",
+		Username: "testuser",
+		Password: "hashedpassword",
+		Name:     "Old Name",
 	}
 
 	req := &dto_user.UpdateProfileRequest{
-		FirstName: "New",
-		LastName:  "Name",
+		Name: "New Name",
 	}
 
 	mockRepo.EXPECT().GetByID(ctx, userID).Return(existingUser, nil)
@@ -156,24 +149,21 @@ func TestUpdateProfile_UpdateError(t *testing.T) {
 	assert.Nil(t, user)
 }
 
-func TestUpdateProfile_PartialUpdate(t *testing.T) {
+func TestUpdateProfile_UpdateName(t *testing.T) {
 	uc, mockRepo := setupTest(t)
 	ctx := createTestContext()
 
 	userID := "user-123"
 	existingUser := &entity.User{
-		ID:        userID,
-		Email:     "test@example.com",
-		Username:  "testuser",
-		Password:  "hashedpassword",
-		FirstName: "Old",
-		LastName:  "Name",
+		ID:       userID,
+		Email:    "test@example.com",
+		Username: "testuser",
+		Password: "hashedpassword",
+		Name:     "Old Name",
 	}
 
-	// Only update FirstName
 	req := &dto_user.UpdateProfileRequest{
-		FirstName: "NewFirst",
-		LastName:  "",
+		Name: "New Name",
 	}
 
 	mockRepo.EXPECT().GetByID(ctx, userID).Return(existingUser, nil)
@@ -184,8 +174,7 @@ func TestUpdateProfile_PartialUpdate(t *testing.T) {
 	require.NoError(t, err)
 	assert.Equal(t, http.StatusOK, status)
 	assert.NotNil(t, user)
-	assert.Equal(t, "NewFirst", user.FirstName)
-	assert.Equal(t, "Name", user.LastName) // Should keep original
+	assert.Equal(t, "New Name", user.Name)
 }
 
 func TestGetUsers_Success(t *testing.T) {
@@ -194,20 +183,18 @@ func TestGetUsers_Success(t *testing.T) {
 
 	expectedUsers := []*entity.User{
 		{
-			ID:        "user-1",
-			Email:     "user1@example.com",
-			Username:  "user1",
-			Password:  "hashedpassword",
-			FirstName: "User",
-			LastName:  "One",
+			ID:       "user-1",
+			Email:    "user1@example.com",
+			Username: "user1",
+			Password: "hashedpassword",
+			Name:     "User One",
 		},
 		{
-			ID:        "user-2",
-			Email:     "user2@example.com",
-			Username:  "user2",
-			Password:  "hashedpassword",
-			FirstName: "User",
-			LastName:  "Two",
+			ID:       "user-2",
+			Email:    "user2@example.com",
+			Username: "user2",
+			Password: "hashedpassword",
+			Name:     "User Two",
 		},
 	}
 
