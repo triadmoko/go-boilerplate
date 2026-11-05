@@ -126,6 +126,7 @@ Language is detected from `Accept-Language` header by `middleware.LanguageMiddle
 
 - Swagger annotations are in `cmd/api/main.go` (global) and handler methods
 - Run `make swag` to regenerate docs after API changes
+- UI uses Scalar (`internal/shared/delivery/http/apidocs`), loaded from CDN; spec served from `swag` at `/swagger/doc.json`
 - Access at `http://localhost:8080/swagger/index.html`
 - Use `@Security BearerAuth` annotation for protected endpoints
 

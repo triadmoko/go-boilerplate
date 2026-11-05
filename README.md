@@ -28,7 +28,7 @@ A production-ready Go REST API template with Clean Architecture and feature-base
 
 ## Prerequisites
 
-- Go 1.25+
+- Go 1.26+
 - PostgreSQL 15+
 - [golang-migrate](https://github.com/golang-migrate/migrate) CLI
 - Docker & Docker Compose (optional)
@@ -80,7 +80,7 @@ The API will be available at `http://localhost:8080`.
 | `PUT` | `/api/v1/users/profile` | Yes | Update user profile |
 | `GET` | `/api/v1/users` | Yes | List users (paginated) |
 | `GET` | `/health` | No | Health check |
-| `GET` | `/swagger/*` | No | Swagger UI documentation |
+| `GET` | `/swagger/index.html` | No | Scalar API reference UI (spec: `/swagger/doc.json`) |
 
 **Authentication**: Include JWT token in header: `Authorization: Bearer <token>`
 
